@@ -1,24 +1,26 @@
-import React, { useState } from "react";
+/* eslint-disable react/prop-types */
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
-function Todo(props) {
-  const [isChecked, setChecked] = useState(false);
-  const toggleCheck = () => {
-    setChecked(!isChecked);
-    props.onRemove(props.id);
-  };
+const Todo = ({ task, toggleComplete, deleteTodo, editTodo }) => {
   return (
-    <li className="list-group-item list-group-item-light todo-item">
-      <input
-        className="form-check-input"
-        type="checkbox"
-        value=""
-        onChange={toggleCheck}
-      />
-      <label className="form-check-label" for={props.value}>
-        {props.value}
-      </label>
-    </li>
+    <div className="Todo">
+      <p
+        className={`${task.completed ? "completed" : ""}`}
+        onClick={() => toggleComplete(task.id)}
+      >
+        {task.task}
+      </p>
+      <div>
+        <FontAwesomeIcon
+          icon={faPenToSquare}
+          onClick={() => editTodo(task.id)}
+        />
+        <FontAwesomeIcon icon={faTrash} onClick={() => deleteTodo(task.id)} />
+      </div>
+    </div>
   );
-}
+};
 
 export default Todo;
